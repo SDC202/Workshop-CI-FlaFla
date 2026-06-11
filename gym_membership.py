@@ -78,4 +78,54 @@ def calculate_membership_costs(plan: str, features: List[str], num_members: int)
         "total_final": int(total_final)
     }
 
-    
+
+# Importa las funciones del Integrante 1 e Integrante 2
+
+def process_gym_membership_flow(plan: str, features: List[str], num_members: int, user_confirmed: bool) -> int:
+    """
+    [Requerimientos 6, 7 y 8] Orquesta el flujo completo de la aplicación.
+    Maneja errores con robustez y retorna el formato entero solicitado o -1.
+    """
+    # ---- [Requerimiento 8: Error Handling] ----
+    try:
+        # Validación de parámetros básicos de entrada
+        if num_members <= 0:
+            print("Error: El número de miembros inscritos debe ser al menos 1.")
+            return -1
+
+        # ---- [Requerimiento 5: Membership Availability] ----
+        if not validate_membership_availability(plan, features):
+            return -1
+
+        # Realizar los cálculos matemáticos
+        resumen = calculate_membership_costs(plan, features, num_members)
+        
+        # ---- [Requerimiento 6: User Confirmation] ----
+        print("\n==============================================")
+        print("          RESUMEN DE COTIZACIÓN GYM           ")
+        print("==============================================")
+        print(f"Plan base seleccionado: {plan.upper()}")
+        print(f"Miembros registrados: {num_members}")
+        print(f"Características Extra: {', '.join(features) if features else 'Ninguna'}")
+        print(f"Descuento de Grupo (10%): -${resumen['group_discount']}")
+        print(f"Recargo de Elementos Premium (15%): +${resumen['premium_surcharge']}")
+        print(f"Descuento Oferta Especial: -${resumen['special_discount']}")
+        print("----------------------------------------------")
+        print(f"COSTO TOTAL ESTIMADO: ${resumen['total_final']}")
+        print("==============================================\n")
+
+        # Evaluar la decisión o estado de confirmación del cliente
+        if not user_confirmed:
+            print("Operación Cancelada: El usuario rechazó los términos o decidió cambiar su selección.")
+            return -1
+
+        # ---- [Requerimiento 7: Output] ----
+        print("¡Membresía registrada con éxito!")
+        return resumen["total_final"]
+
+    except TypeError:
+        print("Error de cálculo: Se detectó un formato inválido en los datos de entrada.")
+        return -1
+    except Exception as e:
+        print(f"Error inesperado en el sistema: {str(e)}")
+        return -1
