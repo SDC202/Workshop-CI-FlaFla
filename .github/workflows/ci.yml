@@ -2,7 +2,7 @@ name: GitHub Actions Continuous Integration
 
 # 1. Configurar disparador para Pull Requests dirigidos a la rama principal (master o main)
 on:
-  pull_request:
+  push:
     branches:
       - main
 
