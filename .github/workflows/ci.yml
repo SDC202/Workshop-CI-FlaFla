@@ -24,10 +24,10 @@ jobs:
       # 4. Instalar las dependencias del proyecto y de calidad de código
       - name: Install Dependencies
         run: |
-          python -m pip upgrade pip
+          python -m pip install --upgrade pip
           pip install pylint pytest pytest-json-report flake8
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-
+          
       # 5. Ejecutar Linting automático
       - name: Analyzing code with pylint
         run: |
