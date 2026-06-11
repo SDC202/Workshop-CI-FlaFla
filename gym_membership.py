@@ -77,3 +77,5 @@ def calculate_membership_costs(plan: str, features: List[str], num_members: int)
         "special_discount": int(special_discount),
         "total_final": int(total_final)
     }
+
+    
