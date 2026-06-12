@@ -112,6 +112,3 @@ def process_gym_membership_flow(
     except TypeError:
         print("Error de calculo: Formato invalido en datos de entrada.")
         return -1
-    except Exception as e:
-        print(f"Error inesperado en el sistema: {str(e)}")
-        return -1
